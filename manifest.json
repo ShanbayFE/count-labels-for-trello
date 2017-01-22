@@ -1,0 +1,22 @@
+{
+    "manifest_version": 2,
+
+    "name": "Trello Color Count",
+    "description": "Count trello label with color for easier communication in a team",
+    "version": "1.0.0",
+
+    "permissions": [
+        "tabs",
+        "https://trello.com/*"
+    ],
+
+    "content_scripts": [{
+        "matches": ["https://trello.com/*"],
+        "css": [
+            "index.css"
+        ],
+        "js": [
+            "background.js"
+        ]
+    }]
+}

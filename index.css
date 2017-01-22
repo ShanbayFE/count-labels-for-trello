@@ -1,0 +1,27 @@
+.time-label-count {
+    text-align: left;
+    margin-left: 10px;
+}
+
+.estimate-time, .actual-time {
+    height: inherit;
+    min-width: 15px;
+    display: inline-block;
+    padding: 0 .5rem !important;
+    margin: 0 15px 10px 0;
+    line-height: 1.14286rem;
+    text-align: center;
+    text-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 5px, rgba(0, 0, 0, 0.2) 0px 0px 2px;
+    font-size: 0.714286rem;
+    color: #fff;
+    border-radius: 4px;
+
+}
+
+.estimate-time {
+    background: #F2D600;
+}
+
+.actual-time {
+    background: #61BD4F;
+}
