@@ -14,10 +14,10 @@
         "default_popup": "pop/popup.html"
     },
 
-    // "background": {
-    //     "persistent": false,
-    //     "scripts": ["background/background.js"]
-    // },
+    "background": {
+        "persistent": false,
+        "scripts": ["background/background.js"]
+    },
 
     "content_scripts": [{
         "matches": ["https://trello.com/*"],

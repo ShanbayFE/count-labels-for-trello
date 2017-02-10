@@ -42,48 +42,69 @@ const toggleCountAbountList = (listPanel, counterName, bool) => {
     listPanel.classList.toggle(`${counterName}-hide`, bool);
 };
 
-window.onload = () => showHoursCount();
+function filterListSumCount(data) {
+    console.log(data)
+    let listPanels = document.querySelectorAll('.list');
 
-chrome.runtime.onMessage.addListener(
-    function (request, sender, senderResponse) {
-        /**
-         *  request format:
-         *  [
-         *      {checkboxName, checkboxVal, checkboxState},
-         *  ]
-         */
-         let {code, data} = request
+    listPanels.forEach(panel => {
+        let listName = panel.querySelector('.list-header-name').innerHTML
+            .toLowerCase();
+        let result = /\w+/.exec(listName);
 
-        if (code === 2) {
-            let listPanels = document.querySelectorAll('.list');
-
-            listPanels.forEach(panel => {
-                let listName = panel.querySelector('.list-header-name').innerHTML
-                    .toLowerCase();
-                let result = /\w+/.exec(listName);
-
-                if (!result) {
-                    return;
-                }
-
-                listName = result[0];
-
-                data
-                    .filter(checkbox => checkbox.checkboxName === listName)
-                    .forEach(checkbox => {
-                        let {checkboxName, checkboxVal, checkboxState} = checkbox;
-
-                        panel.classList.toggle(`${checkboxVal}-hide`, !checkboxState)
-                    });
-            });
+        if (!result) {
+            return;
         }
-    }
-);
+        
+        listName = result[0];
+
+        let countInfo = data[listName];
+
+        if (!countInfo) {
+            return;
+        }
+
+        for (let countName of Object.keys(countInfo)) {
+            let countState = countInfo[countName];
+            panel.classList.toggle(`${countName}-hide`, !countState);
+        }
+    });
+}
+
+window.onload = () => {
+    showHoursCount();
+
+    chrome.runtime.onMessage.addListener(
+        function (request, sender, senderResponse) {
+            /**
+             *  request format:
+             *  [
+             *      {checkboxName, checkboxVal, checkboxState},
+             *  ]
+             */
+            let {code, data} = request
+
+            if (code === 2) {
+                filterListSumCount(data)
+            }
+        }
+    );
 
 
-// chrome.runtime.sendMessage({code: 1} , function(response) {
+    chrome.runtime.sendMessage({ code: 1 }, function (response) {
+        if (!response) {
+            return;
+        }
 
-// })
+        let {code, data} = response
+
+        if (response.code === 2) {
+            filterListSumCount(data)
+        }
+    })
+
+};
+
+
 
 setInterval(showHoursCount, 3000);
 
