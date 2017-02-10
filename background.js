@@ -8,8 +8,8 @@ const showHoursCount = () => {
     arrayMethods.forEach((item) => attachArrayMethodsToNodeList(item));
 
     const listCards = document.querySelectorAll('.list-cards');
-    const estimateLabels = listCards.map((list) => list.querySelectorAll('.card-label-yellow'));
-    const actualLabels = listCards.map((list) => list.querySelectorAll('.card-label-green'));
+    const estimateLabels = listCards.map((list) => list.querySelectorAll('.list-card:not(.hide) .card-label-yellow'));
+    const actualLabels = listCards.map((list) => list.querySelectorAll('.list-card:not(.hide) .card-label-green'));
 
     const getHourCount = (labels) => labels.map((label) => {
         const labelsArray = label.map((item) => parseFloat(item.innerHTML));
