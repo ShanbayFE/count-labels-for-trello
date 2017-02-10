@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body {
+            width: 300px;
+        }
+        .tc-action-popup .field-name {
+            display: inline-block;
+            width: 80px;
+        }
+
+        .tc-action-popup .field-vals {
+            display: inline-block;
+            width: 200px;
+        }
+    </style>
+</head>
+<body class="tc-action-popup">
+    <div class="field" data-list-type="sprint">
+        <div class="field-name">sprint</div>
+        <div class="field-vals">
+            <label for=""><input type="checkbox" name="sprint" value="estimate-time">yellow</label>
+            <label for=""><input type="checkbox" name="sprint" value="actual-time">green</label>
+        </div>
+    </div>
+    <div class="field" data-list-type="doing">
+        <div class="field-name">doing</div>
+        <div class="field-vals">
+            <label for=""><input type="checkbox" name="doing" value="estimate-time">yellow</label>
+            <label for=""><input type="checkbox" name="doing" value="actual-time">green</label>
+        </div>
+    </div>
+    <div class="field" data-list-type="done">
+        <div class="field-name">done</div>
+        <div class="field-vals">
+            <label for=""><input type="checkbox" name="done" value="estimate-time">yellow</label>
+            <label for=""><input type="checkbox" name="done" value="actual-time">green</label>
+        </div>
+    </div>
+    <script src="./popup.js"></script>
+</body>
+</html>

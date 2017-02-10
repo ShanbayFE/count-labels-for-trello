@@ -1,3 +1,5 @@
+const forEach = (ctx, fun) => [].forEach.call(ctx, fun);
+
 const showHoursCount = () => {
     const arrayMethods = Object.getOwnPropertyNames( Array.prototype );
     const attachArrayMethodsToNodeList = (methodName) => {
@@ -36,6 +38,54 @@ const showHoursCount = () => {
     });
 };
 
+const toggleCountAbountList = (listPanel, counterName, bool) => {
+    listPanel.classList.toggle(`${counterName}-hide`, bool);
+};
+
 window.onload = () => showHoursCount();
 
+chrome.runtime.onMessage.addListener(
+    function (request, sender, senderResponse) {
+        /**
+         *  request format:
+         *  [
+         *      {checkboxName, checkboxVal, checkboxState},
+         *  ]
+         */
+         let {code, data} = request
+
+        if (code === 2) {
+            let listPanels = document.querySelectorAll('.list');
+
+            listPanels.forEach(panel => {
+                let listName = panel.querySelector('.list-header-name').innerHTML
+                    .toLowerCase();
+                let result = /\w+/.exec(listName);
+
+                if (!result) {
+                    return;
+                }
+
+                listName = result[0];
+
+                data
+                    .filter(checkbox => checkbox.checkboxName === listName)
+                    .forEach(checkbox => {
+                        let {checkboxName, checkboxVal, checkboxState} = checkbox;
+
+                        panel.classList.toggle(`${checkboxVal}-hide`, !checkboxState)
+                    });
+            });
+        }
+    }
+);
+
+
+// chrome.runtime.sendMessage({code: 1} , function(response) {
+
+// })
+
 setInterval(showHoursCount, 3000);
+
+
+

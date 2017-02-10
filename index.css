@@ -25,3 +25,11 @@
 .actual-time {
     background: #61BD4F;
 }
+
+.list.estimate-time-hide  .estimate-time {
+    display: none;
+}
+
+.list.actual-time-hide .actual-time {
+    display: none;
+}
