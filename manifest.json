@@ -25,6 +25,7 @@
             "index.css"
         ],
         "js": [
+            "lib/jquery-3.1.1.js",
             "content.js"
         ]
     }]

@@ -38,9 +38,17 @@ const showHoursCount = () => {
     });
 };
 
-const toggleCountAbountList = (listPanel, counterName, bool) => {
-    listPanel.classList.toggle(`${counterName}-hide`, bool);
-};
+const transformListToDivider = () => {
+    $('.list-header-name')
+        .filter(function() {
+            return $(this).text().trim().toLowerCase().indexOf("divider") !== -1;
+        })
+        .each(function() {
+            $(this).closest('.js-list')
+                .html('')
+                .toggleClass('cus-divider', true);
+        })
+}
 
 function filterListSumCount(data) {
     console.log(data)
@@ -72,6 +80,7 @@ function filterListSumCount(data) {
 
 window.onload = () => {
     showHoursCount();
+    transformListToDivider();
 
     chrome.runtime.onMessage.addListener(
         function (request, sender, senderResponse) {

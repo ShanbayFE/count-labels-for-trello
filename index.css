@@ -33,3 +33,18 @@
 .list.actual-time-hide .actual-time {
     display: none;
 }
+
+.cus-divider {
+    position: relative;
+    width: 100px !important;
+}
+
+.cus-divider:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 10px;
+    left: 50%;
+    background-color: #026AA7;
+}
