@@ -1,29 +1,28 @@
-const supportLocalStorage = window.hasOwnProperty('localStorage');
-let allCheckbox = document.querySelectorAll('input[type=checkbox]');
-let forEach = (ctx, action) => [].forEach.call(ctx, action);
+/* global chrome */
+
 var config = {
-    sprint: {'estimate-time': true, 'actual-time': false},
-    doing:  {'estimate-time': true, 'actual-time': true},
-    done:   {'estimate-time': true, 'actual-time': true}
+    sprint: { 'estimate-time': true, 'actual-time': false },
+    doing: { 'estimate-time': true, 'actual-time': true },
+    done: { 'estimate-time': true, 'actual-time': true },
 };
-let storageKey = 'trelloConfig';
+const isSupportLocalStorage = !!window.localStorage;
+const storageKey = 'trelloConfig';
 
 
-if (supportLocalStorage) {
-    let str = localStorage.getItem(storageKey);
+if (isSupportLocalStorage) {
+    const str = localStorage.getItem(storageKey);
 
     str && (config = JSON.parse(str));
 }
 
-
 /**
  *  save config to storage
  */
-function saveChange(name, val, state) {
+function saveChange(name, val, state) { // eslint-disable-line
     config[name][val] = state;
-  
+
     // 本地存储
-    if (supportLocalStorage) {
+    if (isSupportLocalStorage) {
         localStorage.setItem(storageKey, JSON.stringify(config));
     }
 }
@@ -31,22 +30,19 @@ function saveChange(name, val, state) {
 /**
  *  @param Array|Object msg
  *  {checkboxName, checkboxVal, checkboxState}
- *  or 
+ *  or
  *  [{checkboxName, checkboxVal, checkboxState}]
  */
-function sendToContextPage(msg) {
-    chrome.tabs.query({active:true, currentWindow: true}, tabs => {
-        chrome.tabs.sendMessage(tabs[0].id, {code: 2, data: msg}, function(response) {
-            console.log('(context page): Copy that');
-        });
+function sendToContextPage(msg) { // eslint-disable-line
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        chrome.tabs.sendMessage(tabs[0].id, { code: 2, data: msg });
     });
 }
 
 
 chrome.runtime.onMessage.addListener(
-    function (request, sender, sendResponse) {
+    (request, sender, sendResponse) => {
         if (request.code === 1) {
-            sendResponse({code: 2, data: config})
+            sendResponse({ code: 2, data: config });
         }
-    }
-);
+    });

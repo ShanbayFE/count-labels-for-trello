@@ -19,11 +19,11 @@
 }
 
 .estimate-time {
-    background: #F2D600;
+    background: #f2d600;
 }
 
 .actual-time {
-    background: #61BD4F;
+    background: #61bd4f;
 }
 
 .list.estimate-time-hide  .estimate-time {
@@ -46,5 +46,5 @@
     bottom: 0;
     width: 10px;
     left: 50%;
-    background-color: #026AA7;
+    background-color: #026aa7;
 }
