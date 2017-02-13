@@ -3,7 +3,7 @@
 
     "name": "Trello Color Count",
     "description": "Count trello label with color for easier communication in a team",
-    "version": "1.0.0",
+    "version": "1.1.0",
 
     "permissions": [
         "tabs",
