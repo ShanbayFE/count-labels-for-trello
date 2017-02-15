@@ -43,9 +43,10 @@ const formatDividerList = () => {
             return $(this).text().trim().toLowerCase().indexOf('divider') !== -1;
         })
         .each(function () {
-            $(this).closest('.js-list')
-                .html('')
-                .toggleClass('cus-divider', true);
+            $(this)
+                .parent().html('')
+                .siblings().remove().end()
+                .closest('.list-wrapper').addClass('cus-divider');
         });
 };
 
@@ -53,7 +54,13 @@ function toggleListCountByConfig(data) {
     const listPanels = document.querySelectorAll('.list');
 
     listPanels.forEach((panel) => {
-        let listName = panel.querySelector('.list-header-name').innerHTML
+        const listHeaderNameDOM = panel.querySelector('.list-header-name');
+
+        if (!listHeaderNameDOM) {
+            return;
+        }
+
+        let listName = listHeaderNameDOM.innerHTML
             .toLowerCase();
         const result = /\w+/.exec(listName);
 
@@ -77,8 +84,10 @@ function toggleListCountByConfig(data) {
 }
 
 window.onload = () => {
-    showHoursCount();
-    formatDividerList();
+    setInterval(() => {
+        showHoursCount();
+        formatDividerList();
+    }, 3000);
 
     chrome.runtime.onMessage.addListener(
         (request /* ,sender ,senderResponse */) => {
@@ -109,4 +118,4 @@ window.onload = () => {
     });
 };
 
-setInterval(showHoursCount, 3000);
+// setInterval(showHoursCount, 3000);
