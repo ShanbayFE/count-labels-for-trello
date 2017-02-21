@@ -37,6 +37,7 @@
 .cus-divider {
     position: relative;
     width: 100px !important;
+    color: transparent;
 }
 
 .cus-divider:before {
@@ -47,4 +48,18 @@
     width: 10px;
     left: 50%;
     background-color: #026aa7;
+}
+
+.cur-divider .list-header-name {
+    color: transparent;
+}
+
+.cus-divider .list {
+    background-color: transparent !important;
+}
+
+.cus-divider .list,
+.cus-divider .list-header {
+    display: block !important;
+    height: 100% !important;
 }
