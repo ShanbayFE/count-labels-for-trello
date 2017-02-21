@@ -5,39 +5,87 @@
     <title>Document</title>
     <style>
         body {
-            width: 300px;
-        }
-        .tc-action-popup .field-name {
-            display: inline-block;
-            width: 80px;
+            width: 240px;
         }
 
-        .tc-action-popup .field-vals {
+        .field {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+
+        .field-name {
+            width: 50px;
+            font-weight: bold;
+        }
+
+        .field-vals {
+            display: flex;
+            width: 180px;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .estimate-time, .actual-time {
+            min-width: 15px;
             display: inline-block;
-            width: 200px;
+            padding: 0 5px;
+            margin: 0 5px;
+            text-align: center;
+            text-shadow: rgba(0, 0, 0, 0.0980392) 0px 0px 5px, rgba(0, 0, 0, 0.2) 0px 0px 2px;
+            line-height: 2;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        .estimate-time {
+            background: #f2d600;
+        }
+
+        .actual-time {
+            background: #61bd4f;
         }
     </style>
 </head>
 <body class="tc-action-popup">
     <div class="field" data-list-type="sprint">
-        <div class="field-name">sprint</div>
+        <div class="field-name">Sprint</div>
         <div class="field-vals">
-            <label for=""><input type="checkbox" name="sprint" value="estimate-time">yellow</label>
-            <label for=""><input type="checkbox" name="sprint" value="actual-time">green</label>
+            <div class="field-item">
+                <input id="e1" type="checkbox" name="sprint" value="estimate-time">
+                <label for="e1" class="estimate-time">yellow</label>
+            </div>
+            <div class="field-item">
+                <input id="a1" type="checkbox" name="sprint" value="actual-time">
+                <label for="a1" class="actual-time">green</label>
+            </div>
         </div>
     </div>
     <div class="field" data-list-type="doing">
-        <div class="field-name">doing</div>
+        <div class="field-name">Doing</div>
         <div class="field-vals">
-            <label for=""><input type="checkbox" name="doing" value="estimate-time">yellow</label>
-            <label for=""><input type="checkbox" name="doing" value="actual-time">green</label>
+            <div class="field-item">
+                <input id="e2" type="checkbox" name="doing" value="estimate-time">
+                <label for="e2" class="estimate-time">yellow</label>
+            </div>
+            <div class="field-item">
+                <input id="a2" type="checkbox" name="doing" value="actual-time">
+                <label for="a2" class="actual-time">green</label>
+            </div>
         </div>
     </div>
     <div class="field" data-list-type="done">
-        <div class="field-name">done</div>
+        <div class="field-name">Done</div>
         <div class="field-vals">
-            <label for=""><input type="checkbox" name="done" value="estimate-time">yellow</label>
-            <label for=""><input type="checkbox" name="done" value="actual-time">green</label>
+            <div class="field-item">
+                <input id="e3" type="checkbox" name="done" value="estimate-time">
+                <label for="e3" class="estimate-time">yellow</label>
+            </div>
+            <div class="field-item">
+                <input id="a3" type="checkbox" name="done" value="actual-time">
+                <label for="a3" class="actual-time">green</label>
+            </div>
         </div>
     </div>
     <script src="./popup.js"></script>
