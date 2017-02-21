@@ -3,22 +3,23 @@ const ext = chrome.extension.getBackgroundPage();
 
 const forEach = (ctx, action) => [].forEach.call(ctx, action);
 
-
 function initCheckboxs(config) {
 //     var config = {
 //     sprint: {'estimate-time': true, 'actual-time': false},
 //     doing:  {'estimate-time': true, 'actual-time': false},
 //     done:   {'estimate-time': true, 'actual-time': false}
 // };
-    Object.keys(config).forEach((k) => {
-        const checkboxs = document.querySelectorAll(`input[name=${k}]`);
+    if (config) {
+        Object.keys(config).forEach((k) => {
+            const checkboxs = document.querySelectorAll(`input[name=${k}]`);
 
-        forEach(checkboxs, (checkbox) => {
-            const val = checkbox.value;
-
-            checkbox.checked = config[k][val];
+            forEach(checkboxs, (_checkbox) => {
+                const checkbox = _checkbox;
+                const val = checkbox.value;
+                checkbox.checked = config[k][val];
+            });
         });
-    });
+    }
 
     bindEvents(); // eslint-disable-line
 }
