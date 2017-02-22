@@ -89,31 +89,13 @@ window.onload = () => {
         formatDividerList();
     }, 3000);
 
-    chrome.runtime.onMessage.addListener(
-        (request /* ,sender ,senderResponse */) => {
-            /**
-             *  request format:
-             *  [
-             *      {checkboxName, checkboxVal, checkboxState},
-             *  ]
-             */
-            const { code, data } = request;
+    chrome.storage.local.get({ trelloConfig: {} }, (result) => {
+        toggleListCountByConfig(result.trelloConfig);
+    });
 
-            if (code === 2) {
-                toggleListCountByConfig(data);
-            }
-        });
-
-
-    chrome.runtime.sendMessage({ code: 1 }, (response) => {
-        if (!response) {
-            return;
-        }
-
-        const { code, data } = response;
-
-        if (code === 2) {
-            toggleListCountByConfig(data);
+    chrome.storage.onChanged.addListener((changes) => {
+        if (changes.trelloConfig) {
+            toggleListCountByConfig(changes.trelloConfig.newValue);
         }
     });
 };

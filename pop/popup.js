@@ -1,14 +1,25 @@
 /* global chrome */
-const ext = chrome.extension.getBackgroundPage();
-
 const forEach = (ctx, action) => [].forEach.call(ctx, action);
 
+function saveChange(name, val, state) {
+    window.config[name][val] = state;
+    chrome.storage.local.set({
+        trelloConfig: window.config,
+    });
+}
+
+function bindEvents() {
+    document.body.addEventListener('change', (event) => {
+        const target = event.target;
+        const checkboxName = target.name;
+        const checkboxVal = target.value;
+        const checkboxState = target.checked;
+
+        saveChange(checkboxName, checkboxVal, checkboxState);
+    });
+}
+
 function initCheckboxs(config) {
-//     var config = {
-//     sprint: {'estimate-time': true, 'actual-time': false},
-//     doing:  {'estimate-time': true, 'actual-time': false},
-//     done:   {'estimate-time': true, 'actual-time': false}
-// };
     if (config) {
         Object.keys(config).forEach((k) => {
             const checkboxs = document.querySelectorAll(`input[name=${k}]`);
@@ -21,19 +32,10 @@ function initCheckboxs(config) {
         });
     }
 
-    bindEvents(); // eslint-disable-line
+    bindEvents();
 }
 
-function bindEvents() {
-    document.body.addEventListener('change', (event) => {
-        const target = event.target;
-        const checkboxName = target.name;
-        const checkboxVal = target.value;
-        const checkboxState = target.checked;
-
-        ext.saveChange(checkboxName, checkboxVal, checkboxState);
-        ext.sendToContextPage({ [checkboxName]: { [checkboxVal]: checkboxState } });
-    });
-}
-
-initCheckboxs(ext.config);
+chrome.storage.local.get({ trelloConfig: null }, (result) => {
+    window.config = result.trelloConfig;
+    initCheckboxs(window.config);
+});
