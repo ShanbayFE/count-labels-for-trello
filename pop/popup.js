@@ -1,4 +1,3 @@
-/* global chrome */
 const forEach = (ctx, action) => [].forEach.call(ctx, action);
 
 function saveChange(name, val, state) {
@@ -36,6 +35,7 @@ function initCheckboxs(config) {
 }
 
 chrome.storage.local.get({ trelloConfig: null }, (result) => {
-    window.config = result.trelloConfig;
+    window.config = result.trelloConfig || { doing: {}, done: {}, sprint: {} };
+
     initCheckboxs(window.config);
 });
