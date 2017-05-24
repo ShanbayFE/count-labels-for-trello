@@ -13,7 +13,13 @@ const showHoursCount = () => {
     const actualLabels = listCards.map(list => list.querySelectorAll('.list-card:not(.hide) .card-label-green'));
 
     const getHourCount = labels => labels.map((label) => {
-        const labelsArray = label.map(item => parseFloat(item.innerHTML));
+        const labelsArray = label.map(item => {
+            let memberNum = item.parentNode.parentNode.querySelectorAll('.list-card-members .member').length;
+            if (memberNum === 0) {
+                memberNum = 1;
+            }
+            return parseFloat(item.innerHTML) * memberNum;
+        });
         return labelsArray.length === 0 ? 0 :
             labelsArray.reduce((pre, next) => pre + next);
     });
