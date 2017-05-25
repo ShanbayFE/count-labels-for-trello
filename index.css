@@ -47,7 +47,7 @@
     bottom: 0;
     width: 10px;
     left: 50%;
-    background-color: #026aa7;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .cur-divider .list-header-name {
