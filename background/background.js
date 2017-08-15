@@ -5,6 +5,7 @@ chrome.storage.local.get({ trelloConfig: null }, (result) => {
                 doing: { 'actual-time': true, 'estimate-time': true },
                 done: { 'actual-time': true, 'estimate-time': true },
                 sprint: { 'actual-time': false, 'estimate-time': true },
+                sumToggle: { 'enable': true },
             },
         });
     }

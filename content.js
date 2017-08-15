@@ -1,5 +1,5 @@
 /* global chrome */
-const showHoursCount = () => {
+const showHoursCount = (sumToggle = true) => {
     const arrayMethods = Object.getOwnPropertyNames(Array.prototype);
     const attachArrayMethodsToNodeList = (methodName) => {
         if (methodName !== 'length') {
@@ -18,7 +18,7 @@ const showHoursCount = () => {
             if (memberNum === 0) {
                 memberNum = 1;
             }
-            return parseFloat(item.innerHTML) * memberNum;
+            return sumToggle ? parseFloat(item.innerHTML) * memberNum : parseFloat(item.innerHTML);
         });
         return labelsArray.length === 0 ? 0 :
             labelsArray.reduce((pre, next) => pre + next);
@@ -90,18 +90,26 @@ function toggleListCountByConfig(data) {
 }
 
 window.onload = () => {
+    let sumToggle = true;
+
     setInterval(() => {
-        showHoursCount();
+        showHoursCount(sumToggle);
         formatDividerList();
     }, 3000);
 
     chrome.storage.local.get({ trelloConfig: {} }, (result) => {
         toggleListCountByConfig(result.trelloConfig);
+        sumToggle = result.trelloConfig.sumToggle.enable;
+        showHoursCount(sumToggle);
+        formatDividerList();
     });
 
     chrome.storage.onChanged.addListener((changes) => {
         if (changes.trelloConfig) {
             toggleListCountByConfig(changes.trelloConfig.newValue);
+            sumToggle = changes.trelloConfig.newValue.sumToggle.enable;
+            showHoursCount(sumToggle);
+            formatDividerList();
         }
     });
 };
